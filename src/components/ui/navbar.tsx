@@ -62,8 +62,8 @@ export function Navbar() {
   const navItems = isLoggedIn
     ? [
         { name: "Home", link: "/" },
-        { name: "List CV", link: "/cv/list" },
-        { name: "Create CV", link: "/cv/create" },
+        { name: "List CV", link: "/cv" },
+        { name: "Create CV", link: "/cv/new" },
       ]
     : [];
 

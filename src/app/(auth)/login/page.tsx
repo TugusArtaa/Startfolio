@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -10,42 +10,16 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-
-  useEffect(() => {
-    const remembered = localStorage.getItem("rememberMe");
-    if (remembered === "true") {
-      const email = localStorage.getItem("rememberedEmail") || "";
-      setForm((prev) => ({ ...prev, email }));
-      setRememberMe(true);
-    }
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setError(null);
   };
 
-  const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRememberMe(e.target.checked);
-    if (!e.target.checked) {
-      localStorage.removeItem("rememberedEmail");
-      localStorage.setItem("rememberMe", "false");
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
-    if (rememberMe) {
-      localStorage.setItem("rememberedEmail", form.email);
-      localStorage.setItem("rememberMe", "true");
-    } else {
-      localStorage.removeItem("rememberedEmail");
-      localStorage.setItem("rememberMe", "false");
-    }
 
     const res = await fetch("/api/login", {
       method: "POST",
@@ -204,38 +178,6 @@ export default function LoginPage() {
                       <span className="text-red-600 text-xs mt-1">{error}</span>
                     )}
                   </LabelInputContainer>
-
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="relative flex items-center">
-                      <input
-                        id="rememberMe"
-                        type="checkbox"
-                        checked={rememberMe}
-                        onChange={handleRememberMeChange}
-                        className="sr-only"
-                      />
-                      <div
-                        onClick={() => setRememberMe(!rememberMe)}
-                        className={`relative inline-flex h-6 w-11 cursor-pointer rounded-full transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 ${
-                          rememberMe ? "bg-teal-600" : "bg-gray-200"
-                        }`}
-                      >
-                        <span
-                          className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-300 ease-in-out ${
-                            rememberMe ? "translate-x-5" : "translate-x-0.5"
-                          }`}
-                          style={{ marginTop: "2px" }}
-                        />
-                      </div>
-                    </div>
-                    <label
-                      htmlFor="rememberMe"
-                      className="text-gray-700 text-sm font-medium cursor-pointer flex items-center"
-                      style={{ lineHeight: "1.5rem" }}
-                    >
-                      Remember Me
-                    </label>
-                  </div>
 
                   <div className="flex justify-end">
                     <button

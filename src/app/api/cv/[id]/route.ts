@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyJWT } from "@/lib/auth";
@@ -5,10 +6,65 @@ import { verifyJWT } from "@/lib/auth";
 const MAX_PHOTO_SIZE = 2 * 1024 * 1024;
 const ALLOWED_PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-export async function PUT(
+// GET handler (detail CV)
+export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
+  const { id } = await context.params;
+  try {
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const token = authHeader.replace("Bearer ", "");
+    const payload = verifyJWT(token);
+    if (!payload || typeof payload !== "object" || !("id" in payload)) {
+      return NextResponse.json(
+        { error: "Invalid or expired token" },
+        { status: 401 }
+      );
+    }
+    const userId = (payload as any).id;
+    if (!id || isNaN(Number(id))) {
+      return NextResponse.json({ error: "Invalid CV id." }, { status: 400 });
+    }
+
+    const cv = await prisma.cV.findUnique({
+      where: { id: Number(id) },
+      select: {
+        id: true,
+        template: true,
+        content: true,
+        photo: true,
+        createdAt: true,
+        updatedAt: true,
+        userId: true,
+      },
+    });
+
+    if (!cv || cv.userId !== userId) {
+      return NextResponse.json(
+        { error: "CV not found or access denied." },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ cv }, { status: 200 });
+  } catch {
+    return NextResponse.json(
+      { error: "Internal server error." },
+      { status: 500 }
+    );
+  }
+}
+
+// DELETE handler
+export async function DELETE(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = await context.params;
   try {
     const authHeader = req.headers.get("authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -24,14 +80,64 @@ export async function PUT(
     }
     const userId = (payload as any).id;
 
-    const cvId = params.id;
-    if (!cvId || isNaN(Number(cvId))) {
+    if (!id || isNaN(Number(id))) {
       return NextResponse.json({ error: "Invalid CV id." }, { status: 400 });
     }
 
     // Cek apakah CV milik user
     const cv = await prisma.cV.findUnique({
-      where: { id: Number(cvId) },
+      where: { id: Number(id) },
+      select: { id: true, userId: true },
+    });
+
+    if (!cv || cv.userId !== userId) {
+      return NextResponse.json(
+        { error: "CV not found or access denied." },
+        { status: 404 }
+      );
+    }
+
+    await prisma.cV.delete({ where: { id: Number(id) } });
+
+    return NextResponse.json(
+      { message: "CV deleted successfully." },
+      { status: 200 }
+    );
+  } catch {
+    return NextResponse.json(
+      { error: "Internal server error." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = await context.params;
+  try {
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const token = authHeader.replace("Bearer ", "");
+    const payload = verifyJWT(token);
+    if (!payload || typeof payload !== "object" || !("id" in payload)) {
+      return NextResponse.json(
+        { error: "Invalid or expired token" },
+        { status: 401 }
+      );
+    }
+    const userId = (payload as any).id;
+
+    if (!id || isNaN(Number(id))) {
+      return NextResponse.json({ error: "Invalid CV id." }, { status: 400 });
+    }
+
+    // Cek apakah CV milik user
+    const cv = await prisma.cV.findUnique({
+      where: { id: Number(id) },
       select: { id: true, userId: true, photo: true },
     });
     if (!cv || cv.userId !== userId) {
@@ -112,7 +218,7 @@ export async function PUT(
     }
 
     const updatedCV = await prisma.cV.update({
-      where: { id: Number(cvId) },
+      where: { id: Number(id) },
       data: {
         template: template as string,
         content,
@@ -129,7 +235,7 @@ export async function PUT(
     });
 
     return NextResponse.json({ cv: updatedCV }, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }
