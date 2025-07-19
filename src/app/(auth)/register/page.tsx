@@ -234,12 +234,6 @@ export default function RegisterPage() {
                         )}
                       </button>
                     </div>
-
-                    {success && (
-                      <div className="bg-green-50 border border-green-200 text-green-600 text-sm p-3 rounded-lg text-center mt-2">
-                        {success}
-                      </div>
-                    )}
                   </form>
                 </div>
               </div>
