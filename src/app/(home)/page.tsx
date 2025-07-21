@@ -12,15 +12,15 @@ import {
   Shield,
   Smartphone,
 } from "lucide-react";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import {
   features,
   howItWorks,
   atsTemplateFeatures,
   creativeTemplateFeatures,
-} from "../data/homepage";
-import { ContactSection } from "../components/home/ContactSection";
-import { FAQSection } from "../components/home/FAQSection";
+} from "../../data/homepage";
+import { ContactSection } from "../../components/home/ContactSection";
+import { FAQSection } from "../../components/home/FAQSection";
 
 export default function HomePage() {
   const { isLoggedIn, userName } = useAuth();
@@ -58,7 +58,7 @@ export default function HomePage() {
                     Welcome back, {userName}!
                   </div>
                   <Link
-                    href="/cv/create"
+                    href="/cv/new"
                     className="group inline-flex items-center justify-center px-4 py-2 sm:px-8 sm:py-4 text-xs sm:text-lg font-semibold text-white bg-gradient-to-r from-teal-600 to-teal-700 rounded-2xl hover:from-teal-700 hover:to-teal-800 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg min-h-[40px] sm:min-h-[56px] w-auto"
                   >
                     Create New CV

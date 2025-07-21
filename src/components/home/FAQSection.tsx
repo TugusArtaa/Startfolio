@@ -18,7 +18,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-12 sm:py-24 bg-white">
+    <section id="faq" className="py-12 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-left sm:text-center mb-8 sm:mb-16">
           <div className="inline-flex items-center bg-white/80 backdrop-blur-sm border border-teal-200/50 text-teal-700 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-xs sm:text-sm font-medium shadow-sm mb-4 sm:mb-6">

@@ -49,7 +49,7 @@ export default function Footer() {
               <ul role="list" className="mt-6 space-y-4">
                 <li>
                   <Link
-                    href="/templates/ats"
+                    href="/cv/new"
                     className="flex items-center text-sm text-gray-300 transition-colors hover:text-emerald-200"
                   >
                     <Target className="mr-2 h-4 w-4" />
@@ -58,7 +58,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/templates/creative"
+                    href="/cv/new"
                     className="flex items-center text-sm text-gray-300 transition-colors hover:text-emerald-200"
                   >
                     <Palette className="mr-2 h-4 w-4" />
@@ -67,7 +67,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/templates"
+                    href="/cv/new"
                     className="flex items-center text-sm text-gray-300 transition-colors hover:text-emerald-200"
                   >
                     <FileText className="mr-2 h-4 w-4" />
@@ -81,22 +81,22 @@ export default function Footer() {
               <h3 className="text-base font-semibold text-white">Support</h3>
               <ul role="list" className="mt-6 space-y-4">
                 <li>
-                  <Link
-                    href="/contact"
+                  <a
+                    href="#contact"
                     className="flex items-center text-sm text-gray-300 transition-colors hover:text-emerald-200"
                   >
                     <Mail className="mr-2 h-4 w-4" />
                     Contact Us
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link
-                    href="/faq"
+                  <a
+                    href="#faq"
                     className="flex items-center text-sm text-gray-300 transition-colors hover:text-emerald-200"
                   >
                     <HelpCircle className="mr-2 h-4 w-4" />
                     FAQ
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -120,21 +120,27 @@ export default function Footer() {
 
               <div className="mt-6 flex space-x-4">
                 <Link
-                  href="#"
+                  href="https://facebook.com/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-800 text-emerald-200 transition-colors hover:bg-teal-400 hover:text-white"
                 >
                   <span className="sr-only">Facebook</span>
                   <Facebook className="h-5 w-5" />
                 </Link>
                 <Link
-                  href="#"
+                  href="https://linkedin.com/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-800 text-emerald-200 transition-colors hover:bg-teal-400 hover:text-white"
                 >
                   <span className="sr-only">LinkedIn</span>
                   <Linkedin className="h-5 w-5" />
                 </Link>
                 <Link
-                  href="#"
+                  href="https://instagram.com/accounts/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-800 text-emerald-200 transition-colors hover:bg-teal-400 hover:text-white"
                 >
                   <span className="sr-only">Instagram</span>
@@ -151,13 +157,13 @@ export default function Footer() {
               </p>
               <div className="mt-4 flex space-x-6 sm:mt-0">
                 <Link
-                  href="/privacy"
+                  href="/privacy-policy"
                   className="text-sm text-gray-400 transition-colors hover:text-emerald-200"
                 >
                   Privacy Policy
                 </Link>
                 <Link
-                  href="/terms"
+                  href="/terms-of-service"
                   className="text-sm text-gray-400 transition-colors hover:text-emerald-200"
                 >
                   Terms of Service

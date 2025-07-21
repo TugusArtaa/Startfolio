@@ -38,7 +38,7 @@ export function ContactSection() {
   };
 
   return (
-    <section className="py-12 sm:py-24 bg-teal-50/80">
+    <section id="contact" className="py-12 sm:py-24 bg-teal-50/80">
       {showToast && (
         <Toast
           message="Your message has been sent successfully!"
