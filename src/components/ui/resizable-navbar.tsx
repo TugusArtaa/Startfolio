@@ -7,6 +7,8 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import React, { useRef, useState } from "react";
 
@@ -123,6 +125,7 @@ export const NavItems = ({
   activeLink,
 }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const pathname = usePathname();
 
   return (
     <motion.div
@@ -133,9 +136,13 @@ export const NavItems = ({
       )}
     >
       {items.map((item, idx) => {
-        const isActive = activeLink === item.link;
+        const currentPath = activeLink || pathname;
+        const isActive =
+          currentPath === item.link ||
+          (item.link !== "/" &&
+            (currentPath === item.link + "/" || currentPath === item.link));
         return (
-          <a
+          <Link
             onMouseEnter={() => setHovered(idx)}
             onClick={onItemClick}
             className={cn(
@@ -146,7 +153,6 @@ export const NavItems = ({
             key={`link-${idx}`}
             href={item.link}
           >
-            {/* Hanya tampilkan efek hover jika tidak aktif */}
             {hovered === idx && !isActive && (
               <motion.div
                 layoutId="hovered"
@@ -154,7 +160,7 @@ export const NavItems = ({
               />
             )}
             <span className="relative z-20">{item.name}</span>
-          </a>
+          </Link>
         );
       })}
     </motion.div>
@@ -248,13 +254,13 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
+    <Link
       href="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img src="/logo/Web-Logo.svg" alt="logo" width={28} height={28} />
       <span className="font-medium text-black">StartFolio</span>
-    </a>
+    </Link>
   );
 };
 

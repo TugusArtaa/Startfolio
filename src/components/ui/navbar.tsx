@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { useState, useEffect, useRef } from "react";
 import { IconChevronDown, IconLogout } from "@tabler/icons-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,7 +22,7 @@ export function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const closeDropdownTimer = useRef<NodeJS.Timeout | null>(null);
   const [isReady, setIsReady] = useState(false);
-  const [activeLink, setActiveLink] = useState<string>("");
+  const pathname = usePathname();
 
   useEffect(() => {
     const token =
@@ -44,12 +46,6 @@ export function Navbar() {
     setIsReady(true);
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setActiveLink(window.location.pathname);
-    }
-  }, []);
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
@@ -63,12 +59,10 @@ export function Navbar() {
     ? [
         { name: "Home", link: "/" },
         { name: "List CV", link: "/cv" },
-        { name: "Create CV", link: "/cv/new" },
       ]
     : [];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   if (!isReady) return null;
 
   return (
@@ -76,7 +70,7 @@ export function Navbar() {
       <ResizableNavbar>
         <NavBody>
           <NavbarLogo />
-          <NavItems items={navItems} activeLink={activeLink} />
+          <NavItems items={navItems} activeLink={pathname} />
           <div className="flex items-center gap-4">
             {!isLoggedIn ? (
               <NavbarButton href="/login" variant="primary">
@@ -163,20 +157,23 @@ export function Navbar() {
             isOpen={isMobileMenuOpen}
             onClose={() => setIsMobileMenuOpen(false)}
           >
-            {navItems.map((item, idx) => (
-              <a
-                key={`mobile-link-${idx}`}
-                href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`relative text-neutral-600 px-4 py-2 rounded-lg w-full ${
-                  activeLink === item.link
-                    ? "bg-teal-600 text-white font-bold shadow"
-                    : ""
-                }`}
-              >
-                <span className="block">{item.name}</span>
-              </a>
-            ))}
+            {navItems.map((item, idx) => {
+              const isActive =
+                pathname === item.link ||
+                (item.link !== "/" && pathname.startsWith(item.link));
+              return (
+                <Link
+                  key={`mobile-link-${idx}`}
+                  href={item.link}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`relative text-neutral-600 px-4 py-2 rounded-lg w-full ${
+                    isActive ? "bg-teal-600 text-white font-bold shadow" : ""
+                  }`}
+                >
+                  <span className="block">{item.name}</span>
+                </Link>
+              );
+            })}
             <div className="flex w-full flex-col gap-4">
               {!isLoggedIn ? (
                 <NavbarButton

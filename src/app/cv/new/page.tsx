@@ -1,26 +1,31 @@
 "use client";
-import React, { useState } from "react";
+
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Toast } from "@/components/ui/toast";
 import CVForm from "../_form";
+import type { CVContent } from "@/types/cv";
+import { CVHeader } from "@/components/cv/CVHeader";
 
 export default function NewCVPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (form: {
     template: string;
-    content: any;
+    content: CVContent;
     photo?: File | null;
   }) => {
-    setLoading(true);
     setError(null);
 
     const token =
       typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
     if (!token) {
       setError("Unauthorized. Please login.");
-      setLoading(false);
+      setShowToast(true);
       return;
     }
 
@@ -35,31 +40,55 @@ export default function NewCVPage() {
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
+
       const data = await res.json();
+
       if (!res.ok) {
         setError(data.error || "Failed to create CV.");
+        setShowToast(true);
       } else {
-        router.push("/cv");
+        setSuccess(true);
+        setShowToast(true);
+        if (data.cv && data.cv.id) {
+          setTimeout(() => {
+            router.push(`/cv/${data.cv.id}/preview`);
+          }, 1200);
+        }
       }
     } catch {
       setError("Failed to create CV.");
+      setShowToast(true);
     }
-    setLoading(false);
   };
 
   return (
-    <main className="flex flex-col flex-1 min-h-screen bg-gradient-to-br from-teal-50/50 via-white to-blue-50/30 py-8">
-      <section className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 text-center">
-          Create New CV
-        </h1>
-        <CVForm loading={loading} onSubmit={handleSubmit} />
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 text-sm p-3 rounded-lg text-center mt-4">
-            {error}
-          </div>
+    <main className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50/30">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-36">
+        <CVHeader
+          title="Create Your Professional CV"
+          description="Build a standout CV that gets you noticed by employers and passes through ATS systems"
+        />
+
+        {error && showToast && (
+          <Toast
+            message={error}
+            type="error"
+            onClose={() => setShowToast(false)}
+          />
         )}
-      </section>
+
+        {success && showToast && (
+          <Toast
+            message="CV created successfully!"
+            type="success"
+            onClose={() => setShowToast(false)}
+          />
+        )}
+
+        <div>
+          <CVForm loading={false} onSubmit={handleSubmit} />
+        </div>
+      </div>
     </main>
   );
 }

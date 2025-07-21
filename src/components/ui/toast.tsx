@@ -125,7 +125,7 @@ export function Toast({
         </span>
         <button
           onClick={onClose}
-          className="ml-2 text-gray-400 hover:text-red-500 focus:text-red-500 transition-colors duration-200"
+          className="ml-2 p-1 text-gray-400 hover:text-red-500 focus:text-red-500 rounded-full hover:bg-gray-400/20 transition-colors duration-200"
         >
           <svg
             className="w-5 h-5"
