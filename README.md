@@ -65,7 +65,7 @@ Berikut beberapa contoh hasil halaman dan CV yang dihasilkan oleh StartFolio:
     <td><img src="public/screenshoot/cvPreview.png" alt="CV Preview" width="220" /></td>
   </tr>
   <tr>
-    <td><img src="public/screenshoot/cvAts-hasil.png" alt="CV ATS" width="220" /></td>
+    <td><img src="/public/screenshoot/cvAts-Hasil.png" alt="CV ATS" width="220" /></td>
     <td><img src="public/screenshoot/cvCreative.jpg" alt="CV Creative" width="220" /></td>
   </tr>
 </table>
