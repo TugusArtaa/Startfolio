@@ -12,7 +12,6 @@ import {
   Shield,
   Smartphone,
 } from "lucide-react";
-
 import { useAuth } from "../hooks/useAuth";
 import {
   features,
@@ -20,6 +19,8 @@ import {
   atsTemplateFeatures,
   creativeTemplateFeatures,
 } from "../data/homepage";
+import { ContactSection } from "../components/home/ContactSection";
+import { FAQSection } from "../components/home/FAQSection";
 
 export default function HomePage() {
   const { isLoggedIn, userName } = useAuth();
@@ -30,7 +31,6 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-teal-50/50 via-white to-blue-50/30"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.08),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.06),transparent_50%)]"></div>
-
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-24">
           <div className="text-left sm:text-center space-y-6 sm:space-y-8">
             <div className="inline-flex items-center bg-white/80 backdrop-blur-sm border border-teal-200/50 text-teal-700 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-xs sm:text-sm font-medium shadow-sm">
@@ -89,17 +89,14 @@ export default function HomePage() {
                   <Shield className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                   ATS-Friendly
                 </div>
-
                 <div className="inline-flex items-center bg-white/70 backdrop-blur-sm border border-blue-200/50 text-blue-700 px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300">
                   <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                   5-Min Setup
                 </div>
-
                 <div className="inline-flex items-center bg-white/70 backdrop-blur-sm border border-purple-200/50 text-purple-700 px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300">
                   <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                   Instant PDF
                 </div>
-
                 <div className="inline-flex items-center bg-white/70 backdrop-blur-sm border border-orange-200/50 text-orange-700 px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300">
                   <Smartphone className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                   Mobile Friendly
@@ -152,7 +149,6 @@ export default function HomePage() {
               the crowd
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 md:gap-12">
             {features.map((feature, index) => (
               <div
@@ -187,7 +183,6 @@ export default function HomePage() {
               have the perfect template for your industry
             </p>
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-12">
             <div className="group bg-gradient-to-br from-gray-50 to-white p-5 sm:p-10 rounded-2xl sm:rounded-3xl border border-gray-200 hover:border-teal-200">
               <div className="flex items-center mb-4 sm:mb-6">
@@ -214,7 +209,6 @@ export default function HomePage() {
                 ))}
               </ul>
             </div>
-
             <div className="group bg-gradient-to-br from-gray-50 to-white p-5 sm:p-10 rounded-2xl sm:rounded-3xl border border-gray-200 hover:border-teal-200">
               <div className="flex items-center mb-4 sm:mb-6">
                 <div className="w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-teal-100 to-teal-200 text-teal-600 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 transition-transform duration-300">
@@ -253,7 +247,6 @@ export default function HomePage() {
               Create your professional CV in just 3 simple steps
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 md:gap-12 relative">
             {howItWorks.map((item) => (
               <div key={item.step} className="relative">
@@ -267,11 +260,9 @@ export default function HomePage() {
                       </span>
                     </div>
                   </div>
-
                   <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-2 sm:mb-4">
                     {item.title}
                   </h3>
-
                   <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-xs mx-0 sm:mx-auto">
                     {item.description}
                   </p>
@@ -281,6 +272,12 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
+
+      {/* Contact Section */}
+      <ContactSection />
     </main>
   );
 }
