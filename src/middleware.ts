@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = ["/api/cv", "/api/profile"];
+const protectedRoutes = ["/api/cv", "/api/profile", "/cv/new", "/cv"];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -17,5 +17,10 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/cv/:path*", "/api/profile/:path*"],
+  matcher: [
+    "/api/cv/:path*",
+    "/api/profile/:path*",
+    "/cv/new/:path*",
+    "/cv/:path*",
+  ],
 };
