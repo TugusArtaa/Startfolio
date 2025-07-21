@@ -53,20 +53,20 @@ Berikut beberapa contoh hasil halaman dan CV yang dihasilkan oleh StartFolio:
 
 <table>
   <tr>
-    <td><img src="/screenshoot/registerPage.png" alt="Register Page" width="220" /></td>
-    <td><img src="/screenshoot/loginPage.png" alt="Login Page" width="220" /></td>
+    <td><img src="public/screenshoot/registerPage.png" alt="Register Page" width="220" /></td>
+    <td><img src="public/screenshoot/loginPage.png" alt="Login Page" width="220" /></td>
   </tr>
   <tr>
-    <td><img src="/screenshoot/homePage.png" alt="Home Page" width="220" /></td>
-    <td><img src="/screenshoot/listCV.png" alt="List CV" width="220" /></td>
+    <td><img src="public/screenshoot/homePage.png" alt="Home Page" width="220" /></td>
+    <td><img src="public/screenshoot/listCV.png" alt="List CV" width="220" /></td>
   </tr>
   <tr>
-    <td><img src="/screenshoot/createCV.png" alt="Create CV" width="220" /></td>
-    <td><img src="/screenshoot/cvPreview.png" alt="CV Preview" width="220" /></td>
+    <td><img src="public/screenshoot/createCV.png" alt="Create CV" width="220" /></td>
+    <td><img src="public/screenshoot/cvPreview.png" alt="CV Preview" width="220" /></td>
   </tr>
   <tr>
-    <td><img src="/screenshoot/cvATS.png" alt="CV ATS" width="220" /></td>
-    <td><img src="/screenshoot/cvCreative.jpg" alt="CV Creative" width="220" /></td>
+    <td><img src="public/screenshoot/cvATS.png" alt="CV ATS" width="220" /></td>
+    <td><img src="public/screenshoot/cvCreative.jpg" alt="CV Creative" width="220" /></td>
   </tr>
 </table>
 
