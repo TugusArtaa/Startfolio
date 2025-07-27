@@ -1,6 +1,8 @@
-# StartFolio CV Generator
+# 📝 StartFolio CV Generator
 
 StartFolio adalah platform modern untuk membuat CV profesional dan kreatif dengan mudah, cepat, dan ATS-friendly. Dibangun menggunakan Next.js 15, Prisma, dan TailwindCSS.
+
+> Dibuat sebagai proyek pribadi.
 
 ## 🚀 Fitur Utama
 
